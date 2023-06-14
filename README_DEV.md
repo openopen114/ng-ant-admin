@@ -14,5 +14,14 @@ src/app/core/services/http/login/login.service.ts
 src/app/core/services/common/login-in-out.service.ts
 
 
-   // 将 token 持久化缓存，请注意，如果没有缓存，则会在路由守卫中被拦截，不让路由跳转
-      // 这个路由守卫在src/app/core/services/common/guard/judgeLogin.guard.ts
+// http 攔截器
+src/app/core/services/interceptors/http-interceptor.service.ts
+
+
+// 登录过期拦截
+src/app/core/services/interceptors/login-expired.service.ts
+
+
+//TODO待確認
+// 将 token 持久化缓存，请注意，如果没有缓存，则会在路由守卫中被拦截，不让路由跳转
+// 这个路由守卫在src/app/core/services/common/guard/judgeLogin.guard.ts

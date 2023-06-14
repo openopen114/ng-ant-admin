@@ -22,13 +22,15 @@ export class HttpInterceptorService implements HttpInterceptor {
   constructor(private windowServe: WindowService, public message: NzMessageService) { }
 
   intercept(req: HttpRequest<NzSafeAny>, next: HttpHandler): Observable<HttpEvent<NzSafeAny>> {
-    // TODO: 這裡可以加入 token 改抓  localstorage
-    const token = this.windowServe.getSessionStorage(TokenKey);
+    // token 改抓  localstorage
+    const token = this.windowServe.getLocalStorage(TokenKey);
     let httpConfig: CustomHttpConfig = {};
 
     // 有 token 就加入 header Authorization: Bearer
     if (!!token) {
-      httpConfig = { headers: req.headers.set(TokenKey, token) };
+      // httpConfig = { headers: req.headers.set(TokenKey, token) };
+      // 如果 TokenKey 不是 'Authorization' 就手動設定為 'Authorization'
+      httpConfig = { headers: req.headers.set('Authorization', token) };
     }
     const copyReq = req.clone(httpConfig);
     return next.handle(copyReq).pipe(

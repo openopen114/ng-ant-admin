@@ -13,7 +13,7 @@ export class StartupService {
   constructor(private userInfoService: UserInfoService, private loginInOutService: LoginInOutService, private windowSer: WindowService) { }
 
   load(): Promise<void> {
-    const token = this.windowSer.getSessionStorage(TokenKey)?.replace(TokenPre, '');
+    const token = this.windowSer.getLocalStorage(TokenKey)?.replace(TokenPre, '');
     console.log("🚀 ~ file: startup.service.ts:17 ~ StartupService ~ load ~ token:", token);
     if (token) {
       return this.loginInOutService.loginIn(token);

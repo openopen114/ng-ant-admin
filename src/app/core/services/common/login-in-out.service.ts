@@ -54,7 +54,7 @@ export class LoginInOutService {
 
 
       // jwt token 存 localStorage  ECC_Authorization
-      this.windowServe.setLocalStorage(TokenKey, token);
+      this.windowServe.setLocalStorage(TokenKey, TokenPre + token);
       // this.windowServe.setSessionStorage(TokenKey, TokenPre + token);
       // 解析token ，然后获取用户信息
       const userInfo: UserInfo = this.userInfoService.parsToken(TokenPre + token);
@@ -106,7 +106,7 @@ export class LoginInOutService {
 
   clearSessionCash(): Promise<void> {
     return new Promise(resolve => {
-      this.windowServe.removeSessionStorage(TokenKey);
+      this.windowServe.removeLocalStorage(TokenKey);
       this.menuService.setMenuArrayStore([]);
       resolve();
     });

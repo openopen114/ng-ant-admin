@@ -27,7 +27,7 @@ export class LoginExpiredService implements HttpInterceptor {
     private message: NzMessageService,
     private windowServe: WindowService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   intercept(req: HttpRequest<string>, next: HttpHandler): Observable<HttpEvent<NzSafeAny>> {
     const newReq = req.clone();
@@ -40,7 +40,7 @@ export class LoginExpiredService implements HttpInterceptor {
   private sendRequest(request: HttpRequest<NzSafeAny>, next: HttpHandler): Observable<NzSafeAny> | null {
     return this.refresher!.pipe(
       switchMap(() => {
-        const token = this.windowServe.getSessionStorage(TokenKey);
+        const token = this.windowServe.getLocalStorage(TokenKey);
         let httpConfig = {};
         if (!!token) {
           httpConfig = { headers: request.headers.set(TokenKey, token) };
