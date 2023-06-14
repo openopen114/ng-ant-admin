@@ -13,13 +13,20 @@ interface CustomHttpConfig {
   headers?: HttpHeaders;
 }
 
+
+
+// http 攔截service
+
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor(private windowServe: WindowService, public message: NzMessageService) {}
+  constructor(private windowServe: WindowService, public message: NzMessageService) { }
 
   intercept(req: HttpRequest<NzSafeAny>, next: HttpHandler): Observable<HttpEvent<NzSafeAny>> {
+    // TODO: 這裡可以加入 token 改抓  localstorage
     const token = this.windowServe.getSessionStorage(TokenKey);
     let httpConfig: CustomHttpConfig = {};
+
+    // 有 token 就加入 header Authorization: Bearer
     if (!!token) {
       httpConfig = { headers: req.headers.set(TokenKey, token) };
     }
@@ -30,20 +37,21 @@ export class HttpInterceptorService implements HttpInterceptor {
     );
   }
 
+  // TODO: 待驗證有作用
   private handleError(error: HttpErrorResponse): Observable<never> {
     const status = error.status;
     let errMsg = '';
     if (status === 0) {
-      errMsg = '网络出现未知的错误，请检查您的网络。';
+      errMsg = '網絡出現未知的錯誤，請檢查您的網絡。';
     }
     if (status >= 300 && status < 400) {
-      errMsg = `请求被服务器重定向，状态码为${status}`;
+      errMsg = `請求被服務器重定向，狀態碼為${status}`;
     }
     if (status >= 400 && status < 500) {
-      errMsg = `客户端出错，可能是发送的数据有误，状态码为${status}`;
+      errMsg = `客戶端出錯，可能是發送的數據有誤，狀態碼為${status}`;
     }
     if (status >= 500) {
-      errMsg = `服务器发生错误，状态码为${status}`;
+      errMsg = `服務器發生錯誤，狀態碼為${status}`;
     }
     return throwError({
       code: status,

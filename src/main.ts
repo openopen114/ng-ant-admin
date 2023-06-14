@@ -12,6 +12,8 @@ import { AppComponent } from '@app/app.component';
 import interceptors from '@app/core/services/interceptors';
 import { InitThemeService } from '@core/services/common/init-theme.service';
 import { LoadAliIconCdnService } from '@core/services/common/load-ali-icon-cdn.service';
+
+// SimpleReuseStrategy 路由复用 路由缓存
 import { SimpleReuseStrategy } from '@core/services/common/reuse-strategy';
 import { ScrollService } from '@core/services/common/scroll.service';
 import { SelectivePreloadingStrategyService } from '@core/services/common/selective-preloading-strategy.service';
@@ -21,7 +23,7 @@ import { ThemeSkinService } from '@core/services/common/theme-skin.service';
 import { StartupService } from '@core/startup/startup.service';
 import { environment } from '@env/environment';
 import { NzDrawerServiceModule } from 'ng-zorro-antd/drawer';
-import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
+import { NZ_I18N, zh_CN, zh_TW } from 'ng-zorro-antd/i18n';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import { NzMessageServiceModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -34,24 +36,35 @@ const icons = [MenuFoldOutline, MenuUnfoldOutline, DashboardOutline, FormOutline
 registerLocaleData(zh_Hant, 'zh-tw');
 
 
-// TODO: 確認用途
+// TODO: ============ 確認下列 service 用途 =================
 // 取 token 並登入並給權限 & 菜單資料 
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
 }
 
+// TODO: 改抓  ant desing icon
+// 获取阿里图标库 -----> 改抓  ant desing icon
 export function LoadAliIconCdnFactory(loadAliIconCdnService: LoadAliIconCdnService) {
   return () => loadAliIconCdnService.load();
 }
 
+// 初始化 theme
+/*
 export function InitThemeServiceFactory(initThemeService: InitThemeService) {
   return async () => await initThemeService.initTheme();
 }
+*/
 
+
+
+// 锁屏服务
 export function InitLockedStatusServiceFactory(subLockedStatusService: SubLockedStatusService) {
   return () => subLockedStatusService.initLockedStatus();
 }
 
+
+
+// 监听浏览器宽
 export function SubWindowWithServiceFactory(subWindowWithService: SubWindowWithService) {
   return () => subWindowWithService.subWindowWidth();
 }
@@ -84,12 +97,12 @@ const APPINIT_PROVIDES = [
     multi: true
   },
   // 初始化主题
-  {
-    provide: APP_INITIALIZER,
-    useFactory: InitThemeServiceFactory,
-    deps: [InitThemeService],
-    multi: true
-  },
+  // {
+  //   provide: APP_INITIALIZER,
+  //   useFactory: InitThemeServiceFactory,
+  //   deps: [InitThemeService],
+  //   multi: true
+  // },
   // 初始化监听屏幕宽度服务
   {
     provide: APP_INITIALIZER,
@@ -118,11 +131,11 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: SimpleReuseStrategy, deps: [DOCUMENT, ScrollService] },
-    { provide: NZ_I18N, useValue: zh_CN },
+    { provide: NZ_I18N, useValue: zh_TW },
     { provide: NZ_ICONS, useValue: icons },
     provideRouter(
-      appRoutes,
-      withPreloading(SelectivePreloadingStrategyService),
+      appRoutes, // app route 路由配置
+      withPreloading(SelectivePreloadingStrategyService), // 预加载
       withInMemoryScrolling({
         scrollPositionRestoration: 'top'
       }),
