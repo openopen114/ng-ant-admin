@@ -29,26 +29,26 @@ export class WindowService {
     return false;
   }
 
-  setStorage(key: string, value: string): void {
+  setLocalStorage(key: string, value: string): void {
     if (this.isBrowser) {
       localStorage.setItem(key, value);
     }
   }
 
-  getStorage(key: string): string | null {
+  getLocalStorage(key: string): string | null {
     if (this.isBrowser) {
       return localStorage.getItem(key);
     }
     return null;
   }
 
-  removeStorage(key: string): void {
+  removeLocalStorage(key: string): void {
     if (this.isBrowser) {
       localStorage.removeItem(key);
     }
   }
 
-  clearStorage(): void {
+  clearLocalStorage(): void {
     if (this.isBrowser) {
       localStorage.clear();
     }

@@ -19,12 +19,23 @@ export class LoginService {
     public http: BaseHttpService,
     // @Inject(MENU_TOKEN) public menus: Menu[],
     private menuService: MenusService
-  ) {}
+  ) { }
 
+
+  /**
+   * 
+   * 登录請求
+   *  
+   */
   public login(params: UserLogin): Observable<string> {
     return this.http.post('/login', params, { needSuccessInfo: false });
   }
 
+  /**
+   *  
+   * 
+   * 通过用户Id来获取菜单数组 
+   */
   public getMenuByUserId(userId: number): Observable<Menu[]> {
     // 如果是静态菜单，就把下面注释放开
     // return of(this.menus);

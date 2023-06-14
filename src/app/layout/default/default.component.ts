@@ -49,7 +49,7 @@ export class DefaultComponent implements OnInit, AfterViewInit {
   isOverMode = false; // 窗口变窄时，导航栏是否变成抽屉模式
   @ViewChild('navDrawer') navDrawer!: NavDrawerComponent;
   destroyRef = inject(DestroyRef);
-  constructor(private themesService: ThemeService, private driverService: DriverService, private windowService: WindowService) {}
+  constructor(private themesService: ThemeService, private driverService: DriverService, private windowService: WindowService) { }
 
   changeCollapsed(): void {
     if (this.isOverMode) {
@@ -77,10 +77,10 @@ export class DefaultComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.windowService.getStorage(IsFirstLogin) === 'false') {
+    if (this.windowService.getLocalStorage(IsFirstLogin) === 'false') {
       return;
     }
-    this.windowService.setStorage(IsFirstLogin, 'false');
+    this.windowService.setLocalStorage(IsFirstLogin, 'false');
     this.driverService.load();
   }
 

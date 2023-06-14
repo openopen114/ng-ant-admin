@@ -72,7 +72,7 @@ export class Login1Component implements OnInit {
     private login1StoreService: Login1StoreService,
     private breakpointObserver: BreakpointObserver,
     private themesService: ThemeService
-  ) {}
+  ) { }
 
   getCurrentComponent(type: LoginType): LoginFormComponentInterface {
     return this.formData.find(item => item.type === type)!;
@@ -88,7 +88,7 @@ export class Login1Component implements OnInit {
   }
 
   changeNight(isNight: boolean): void {
-    this.windowServe.setStorage(IsNightKey, `${isNight}`);
+    this.windowServe.setLocalStorage(IsNightKey, `${isNight}`);
     this.themesService.setIsNightTheme(isNight);
     this.themeSkinService.toggleTheme().then(() => {
       this.cdr.markForCheck();

@@ -59,7 +59,7 @@ export class LayoutHeadRightMenuComponent implements OnInit {
     public message: NzMessageService,
     private userInfoService: UserInfoService,
     private accountService: AccountService
-  ) {}
+  ) { }
 
   // 锁定屏幕
   lockScreen(): void {
@@ -110,7 +110,7 @@ export class LayoutHeadRightMenuComponent implements OnInit {
   }
 
   clean(): void {
-    this.windowServe.clearStorage();
+    this.windowServe.clearLocalStorage();
     this.windowServe.clearSessionStorage();
     this.loginOutService.loginOut().then();
     this.message.success('清除成功，请重新登录');
@@ -124,5 +124,5 @@ export class LayoutHeadRightMenuComponent implements OnInit {
     this.router.navigateByUrl(`/default/page-demo/personal/${path}`);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

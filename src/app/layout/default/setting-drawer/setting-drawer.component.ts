@@ -172,7 +172,7 @@ export class SettingDrawerComponent implements OnInit {
     private themeSkinService: ThemeSkinService,
     private windowServe: WindowService,
     private rd2: Renderer2
-  ) {}
+  ) { }
 
   changeCollapsed(): void {
     if (!this.dragging) {
@@ -191,7 +191,7 @@ export class SettingDrawerComponent implements OnInit {
 
   // 修改黑夜主题
   changeNightTheme(isNight: boolean): void {
-    this.windowServe.setStorage(IsNightKey, `${isNight}`);
+    this.windowServe.setLocalStorage(IsNightKey, `${isNight}`);
     this.themesService.setIsNightTheme(isNight);
     this.themeSkinService.toggleTheme().then();
   }
@@ -219,7 +219,7 @@ export class SettingDrawerComponent implements OnInit {
   // 设置主题参数
   setThemeOptions(): void {
     this.themesService.setThemesMode(this._themesOptions);
-    this.windowServe.setStorage(ThemeOptionsKey, JSON.stringify(this._themesOptions));
+    this.windowServe.setLocalStorage(ThemeOptionsKey, JSON.stringify(this._themesOptions));
   }
 
   // 修改固定头部

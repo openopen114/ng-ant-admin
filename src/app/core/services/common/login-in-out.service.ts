@@ -15,6 +15,7 @@ import { MenuStoreService } from '@store/common-store/menu-store.service';
 import { UserInfo, UserInfoService } from '@store/common-store/userInfo.service';
 import { fnFlatDataHasParentToTree } from '@utils/treeTableTools';
 
+
 /*
  * 退出登录
  * */
@@ -39,12 +40,22 @@ export class LoginInOutService {
     return this.loginService.getMenuByUserId(userId);
   }
 
+
+
+
   loginIn(token: string): Promise<void> {
     return new Promise(resolve => {
       // 将 token 持久化缓存，请注意，如果没有缓存，则会在路由守卫中被拦截，不让路由跳转
       // 这个路由守卫在src/app/core/services/common/guard/judgeLogin.guard.ts
-      // TODO:走 localStorage
-      this.windowServe.setSessionStorage(TokenKey, TokenPre + token);
+
+      // angular中使用md5密码加密
+      // ref: https://github.com/cotag/ts-md5 
+
+
+
+      // jwt token 存 localStorage  ECC_Authorization
+      this.windowServe.setLocalStorage(TokenKey, token);
+      // this.windowServe.setSessionStorage(TokenKey, TokenPre + token);
       // 解析token ，然后获取用户信息
       const userInfo: UserInfo = this.userInfoService.parsToken(TokenPre + token);
       // todo  这里是手动添加静态页面标签页操作中打开详情的按钮的权限，因为他们涉及到路由跳转，会走路由守卫，但是权限又没有通过后端管理，所以下面两行手动添加权限，实际操作中可以删除下面2行

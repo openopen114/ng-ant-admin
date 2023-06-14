@@ -20,6 +20,16 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
+
+// MD5 
+import { Md5 } from 'ts-md5';
+
+import * as _ from 'lodash';
+
+
+
+
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -35,7 +45,7 @@ export class LoginFormComponent implements OnInit {
     private fb: FormBuilder,
     private loginInOutService: LoginInOutService,
     private menuService: MenuStoreService,
-    private dataService: LoginService,
+    private loginService: LoginService,
     private spinService: SpinService,
     private windowServe: WindowService,
     private userInfoService: UserInfoService,
@@ -51,10 +61,24 @@ export class LoginFormComponent implements OnInit {
     this.spinService.setCurrentGlobalSpinStore(true);
     // 获取表单的值
     const param = this.validateForm.getRawValue();
-    console.log("🚀 ~ file: login-form.component.ts:54 ~ LoginFormComponent ~ submitForm ~ param:", param)
 
 
-    console.log('调用登录接口')
+    console.log('angular中使用md5密码加密')
+    console.log(_.toUpper(Md5.hashStr('1111')));
+
+
+
+    // 中冠前端密碼 MD5 加密, 轉大寫 後往後驗證
+    // TODO:判斷是否為華新ID
+    const { password } = param;
+    const md5Password = Md5.hashStr(password);
+    // param.password = _.toUpper(md5Password);
+
+
+    console.log('🚀 ~ file: login-form.component.ts:54 ~ LoginFormComponent ~ submitForm ~ param:', param);
+
+
+    console.log('调用登录接口');
     // 调用登录接口
     // todo 登录后台返回统一模式为,如果code不为0，会自动被拦截，如果需要修改，请在src/app/core/services/http/base-http.service.ts中进行修改
     // {
@@ -62,7 +86,7 @@ export class LoginFormComponent implements OnInit {
     //   data:any,
     //   msg：string
     // }
-    this.dataService
+    this.loginService
       .login(param)
       .pipe(
         // 无论如何设置全局loading为false
@@ -73,9 +97,8 @@ export class LoginFormComponent implements OnInit {
       )
       .subscribe(userToken => {
         // 这里后台登录成功以后，只会返回一套由jwt加密的token，下面需要对token进行解析
-        console.log('这里后台登录成功以后，只会返回一套由jwt加密的token，下面需要对token进行解析')
-        console.log("🚀 ~ file: login-form.component.ts:87 ~ LoginFormComponent ~ submitForm ~ userToken:", userToken)
-
+        console.log('这里后台登录成功以后，只会返回一套由jwt加密的token，下面需要对token进行解析');
+        console.log('🚀 ~ file: login-form.component.ts:87 ~ LoginFormComponent ~ submitForm ~ userToken:', userToken);
 
         this.loginInOutService
           .loginIn(userToken)

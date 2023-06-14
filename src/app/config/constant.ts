@@ -3,7 +3,7 @@
 // 请求头token的前缀
 export const TokenPre = 'Bearer ';
 // tokenKey
-export const TokenKey = 'Authorization';
+export const TokenKey = 'ECC_Authorization';
 // 是否是暗黑模式key
 export const IsNightKey = 'IsNightKey';
 // 主题设置key
