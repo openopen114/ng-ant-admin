@@ -63,6 +63,7 @@
     <div class="mix-sider-height" style="overflow: hidden auto"><app-nav-bar [isMixiLeft]="(themeOptions$ | async)!.splitNav" /></div>
   </ng-container>
 
+  <!-- ============== content =============== -->
   <ng-container content>
     <div>
       <app-tab *ngIf="(themeOptions$ | async)?.isShowTab"></app-tab>

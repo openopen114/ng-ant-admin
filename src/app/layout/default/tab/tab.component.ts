@@ -29,6 +29,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 })
 export class TabComponent implements OnInit {
   tabsSourceData: TabModel[] = [];
+  // tab 資料源
   tabsSourceData$ = this.tabService.getTabArray$();
   themesOptions$ = this.themesService.getThemesMode();
   isNightTheme$ = this.themesService.getIsNightTheme();

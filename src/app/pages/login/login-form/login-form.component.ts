@@ -40,7 +40,7 @@ export class LoginFormComponent implements OnInit {
     private windowServe: WindowService,
     private userInfoService: UserInfoService,
     private router: Router
-  ) {}
+  ) { }
 
   submitForm(): void {
     // 校验表单
@@ -51,6 +51,10 @@ export class LoginFormComponent implements OnInit {
     this.spinService.setCurrentGlobalSpinStore(true);
     // 获取表单的值
     const param = this.validateForm.getRawValue();
+    console.log("🚀 ~ file: login-form.component.ts:54 ~ LoginFormComponent ~ submitForm ~ param:", param)
+
+
+    console.log('调用登录接口')
     // 调用登录接口
     // todo 登录后台返回统一模式为,如果code不为0，会自动被拦截，如果需要修改，请在src/app/core/services/http/base-http.service.ts中进行修改
     // {
@@ -69,9 +73,14 @@ export class LoginFormComponent implements OnInit {
       )
       .subscribe(userToken => {
         // 这里后台登录成功以后，只会返回一套由jwt加密的token，下面需要对token进行解析
+        console.log('这里后台登录成功以后，只会返回一套由jwt加密的token，下面需要对token进行解析')
+        console.log("🚀 ~ file: login-form.component.ts:87 ~ LoginFormComponent ~ submitForm ~ userToken:", userToken)
+
+
         this.loginInOutService
           .loginIn(userToken)
           .then(() => {
+            // 登入成功後 重新導向到預設頁面
             this.router.navigateByUrl('default/dashboard/analysis');
           })
           .finally(() => {

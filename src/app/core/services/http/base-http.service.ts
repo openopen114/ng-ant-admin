@@ -28,6 +28,7 @@ export class BaseHttpService {
   uri: string;
 
   protected constructor(public http: HttpClient, public message: NzMessageService) {
+    // TODO: 取得 url
     this.uri = environment.production ? localUrl : '/site/api';
   }
 

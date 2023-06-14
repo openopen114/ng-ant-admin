@@ -18,7 +18,7 @@
           <a (click)="changeRoute($event, menu)">
             <i *ngIf="menu.icon" nz-icon [nzType]="menu.icon"></i>
             <i *ngIf="menu.alIcon" nz-icon [nzIconfont]="menu.alIcon"></i>
-            <span>{{ menu.menuName }}</span>
+            <span>L1 {{ menu.menuName }}</span>
           </a>
         </li>
         <!--二级菜单-->
@@ -28,7 +28,7 @@
             <ng-template #titleTpl>
               <i *ngIf="menu.icon" nz-icon [nzType]="menu.icon"></i>
               <i *ngIf="menu.alIcon" nz-icon [nzIconfont]="menu.alIcon"></i>
-              <span>{{ menu.menuName }}</span>
+              <span>L2{{ menu.menuName }}</span>
             </ng-template>
             <ul>
               <ng-container *ngFor="let menuSecond of menu.children; trackByProperty: 'id'">
@@ -43,7 +43,7 @@
                     <a (click)="changeRoute($event, menuSecond)">
                       <i *ngIf="menuSecond.icon" nz-icon [nzType]="menuSecond.icon"></i>
                       <i *ngIf="menuSecond.alIcon" nz-icon [nzIconfont]="menuSecond.alIcon"></i>
-                      <span>{{ menuSecond.menuName }}</span>
+                      <span>L2.2{{ menuSecond.menuName }}</span>
                     </a>
                   </li>
                   <!--三级菜单-->
@@ -58,7 +58,7 @@
                     <ng-template #titleTpl>
                       <i *ngIf="menuSecond.icon" nz-icon [nzType]="menuSecond.icon"></i>
                       <i *ngIf="menuSecond.alIcon" nz-icon [nzIconfont]="menuSecond.alIcon"></i>
-                      <span>{{ menuSecond.menuName }}</span>
+                      <span>L2.3{{ menuSecond.menuName }}</span>
                     </ng-template>
                     <ul>
                       <ng-container *ngFor="let menuThird of menuSecond.children; trackByProperty: 'id'">

@@ -54,6 +54,9 @@ export class LoginInOutService {
       // 将用户信息缓存到全局service中
       this.userInfoService.setUserInfo(userInfo);
       // 通过用户id来获取这个用户所拥有的menu
+
+      console.log('通过用户id来获取这个用户所拥有的menu')
+
       this.getMenuByUserId(userInfo.userId)
         .pipe(
           finalize(() => {

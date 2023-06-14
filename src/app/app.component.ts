@@ -23,17 +23,27 @@ import { fadeRouteAnimation } from './animations/fade.animation';
 @Component({
   selector: 'app-root',
   template: `
+    <!-- 锁屏頁面  -->
     <app-lock-screen *ngIf="(lockedState$ | async)!.locked"></app-lock-screen>
+
+
+    <!-- BackTop回到顶部 -->
     <nz-back-top></nz-back-top>
+
+    <!-- router-outlet  -->
     <div class="full-height" [@fadeRouteAnimation]="prepareRoute(outlet)">
       <router-outlet #outlet="outlet"></router-outlet>
     </div>
-    <div *ngIf="loading$ | async" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:1001;background:rgba(24,144,255,0.1);">
+    
+    <!-- loading 指示器  -->
+ <div *ngIf="loading$ | async" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:1001;background:rgba(24,144,255,0.1);">
       <div style="position:absolute;top: 50%;left:50%;margin:-16px 0 0 -16px;">
         <nz-spin nzSize="large"></nz-spin>
       </div>
-    </div>
+    </div>  
+ 
 
+    <!-- 全螢幕  -->
     <ng-template #modalBtnTpl>
       <div class="center">
         <span class="hover-blue full-height flex-auto text-right d-i-b" (click)="fullScreenIconClick($event)">
@@ -47,8 +57,8 @@ import { fadeRouteAnimation } from './animations/fade.animation';
 
     <ng-template #drawerFootDefaultTpl>
       <div class="end-start-center">
-        <button class="m-r-8" nz-button nzType="default" (click)="drawerWrapService.cancel()">取消</button>
-        <button nz-button nzType="primary" (click)="drawerWrapService.sure()">确定</button>
+        <button class="m-r-8" nz-button nzType="default" (click)="drawerWrapService.cancel()">取消0000</button>
+        <button nz-button nzType="primary" (click)="drawerWrapService.sure()">確定1111</button>
       </div>
     </ng-template>
   `,
@@ -71,7 +81,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private preloader: PreloaderService,
     private spinService: SpinService,
     public router: Router
-  ) {}
+  ) { }
 
   // 所有对话框扩展最大化按钮，将templateRef传入Modal基础service的妥协方法
   fullScreenIconClick($event: MouseEvent): void {

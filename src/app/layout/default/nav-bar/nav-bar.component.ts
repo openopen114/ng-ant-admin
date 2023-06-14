@@ -148,10 +148,14 @@ export class NavBarComponent implements OnInit {
       .getMenuArrayStore()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(menusArray => {
+        console.log('===> initMenus');
+        console.log('menusArray');
+        console.log(menusArray);
         this.menus = menusArray;
         this.copyMenus = this.cloneMenuArray(this.menus);
         this.clickMenuItem(this.menus);
         this.clickMenuItem(this.copyMenus);
+        // markForCheck 的用途，當呼叫這個方法時，就是告訴 ChangeDetector ，請檢查我本身及我上頭的 Component。更新的方向性是往 Root 向上移動
         this.cdr.markForCheck();
       });
   }
@@ -264,6 +268,8 @@ export class NavBarComponent implements OnInit {
   }
 
   changeRoute(e: MouseEvent, menu: Menu): void {
+    console.log('changeRoute')
+    console.log(menu)
     if (menu.newLinkFlag) {
       fnStopMouseEvent(e);
       window.open(menu.path, '_blank');

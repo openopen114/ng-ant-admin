@@ -16,11 +16,16 @@ export class AuthDirective {
       this.show(true);
       return;
     }
+
+    console.log('===> 檢查 appAuth: ' + authCode);
+    console.log('this.codeArray.includes(authCode) :' + this.codeArray.includes(authCode))
+
     this.codeArray.includes(authCode) ? this.show(true) : this.show(false);
   }
 
   constructor(private userInfoService: UserInfoService, private templateRef: TemplateRef<NzSafeAny>, private viewContainerRef: ViewContainerRef) {
     this.userInfoService.getUserInfo().subscribe(userInfo => {
+      // TODO:   user 的 code(authCode)  array
       this.codeArray = userInfo.authCode;
     });
   }

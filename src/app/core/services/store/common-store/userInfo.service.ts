@@ -14,12 +14,18 @@ export interface UserInfo {
 export class UserInfoService {
   private userInfo$ = new BehaviorSubject<UserInfo>({ userId: -1, authCode: [] });
 
-  constructor() {}
+  constructor() { }
 
   parsToken(token: string): UserInfo {
     const helper = new JwtHelperService();
     try {
       const { rol, userId } = helper.decodeToken(token);
+      console.log("====> UserInfoService")
+      console.log("🚀 ~ file: userInfo.service.ts:23 ~ UserInfoService ~ parsToken ~ rol:", rol)
+      console.log("🚀 ~ file: userInfo.service.ts:23 ~ UserInfoService ~ parsToken ~ userId:", userId)
+
+
+
       return {
         userId,
         authCode: rol.split(',')
@@ -33,6 +39,8 @@ export class UserInfoService {
   }
 
   setUserInfo(userInfo: UserInfo): void {
+    console.log("===> setUserInfo userInfo")
+    console.log(userInfo)
     this.userInfo$.next(userInfo);
   }
 
