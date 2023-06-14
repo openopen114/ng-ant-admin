@@ -1,6 +1,6 @@
 import { DOCUMENT, registerLocaleData } from '@angular/common';
 import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
-import zh from '@angular/common/locales/zh';
+import zh_Hant from '@angular/common/locales/zh-Hant';
 import { enableProdMode, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -26,10 +26,16 @@ import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import { NzMessageServiceModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 
+// tsconfig.json > compilerOptions > path  定義縮路徑寫
+
 const icons = [MenuFoldOutline, MenuUnfoldOutline, DashboardOutline, FormOutline];
 
-registerLocaleData(zh);
 
+registerLocaleData(zh_Hant, 'zh-tw');
+
+
+// TODO: 確認用途
+// 取 token 並登入並給權限 & 菜單資料 
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
 }
@@ -49,6 +55,11 @@ export function InitLockedStatusServiceFactory(subLockedStatusService: SubLocked
 export function SubWindowWithServiceFactory(subWindowWithService: SubWindowWithService) {
   return () => subWindowWithService.subWindowWidth();
 }
+
+// APP_INITIALIZER 用法
+// https://ithelp.ithome.com.tw/articles/10207812
+
+
 
 const APPINIT_PROVIDES = [
   // 项目启动
@@ -100,6 +111,9 @@ const APPINIT_PROVIDES = [
 if (environment.production) {
   enableProdMode();
 }
+
+
+// TODO:確認 http Interceptor
 
 bootstrapApplication(AppComponent, {
   providers: [
