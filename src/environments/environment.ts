@@ -6,7 +6,12 @@ const port = '80';
 export const localUrl = `http://${ip}:${port}`;
 
 export const environment = {
-  production: false
+  production: false,
+  ENV: 'dev',
+  ENV_DESC: '開發環境',
+  VERSION: '1.0.0',
+  APP_NAME: 'Walsin ICSM',
+  API_BODY: '/test-walsin-iscm-be-service'
 };
 
 /*

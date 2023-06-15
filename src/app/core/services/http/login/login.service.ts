@@ -28,7 +28,8 @@ export class LoginService {
    *  
    */
   public login(params: UserLogin): Observable<string> {
-    return this.http.post('/login', params, { needSuccessInfo: false });
+    // http://localhost:8090/test-walsin-iscm-be-service/auth/login
+    return this.http.post('/auth/login', params, { needSuccessInfo: false });
   }
 
   /**

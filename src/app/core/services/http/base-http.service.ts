@@ -4,10 +4,13 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { localUrl } from '@env/environment.prod';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import * as qs from 'qs';
+
+
+// 取得 API 的基本路徑
+import { getBaseApiUrl } from '@core/services/http/base-api-url';
 
 export interface HttpCustomConfig {
   needSuccessInfo?: boolean; // 是否需要"操作成功"提示
@@ -28,8 +31,10 @@ export class BaseHttpService {
   uri: string;
 
   protected constructor(public http: HttpClient, public message: NzMessageService) {
-    // TODO: 取得 url
-    this.uri = environment.production ? localUrl : '/site/api';
+    // TODO: 取得 API 的基本路徑
+    this.uri = getBaseApiUrl();
+    console.log("🚀 ~ file: base-http.service.ts:37 ~ BaseHttpService ~ constructor ~ uri:", this.uri)
+
   }
 
   get<T>(path: string, param?: NzSafeAny, config?: HttpCustomConfig): Observable<T> {

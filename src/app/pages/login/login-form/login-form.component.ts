@@ -72,20 +72,15 @@ export class LoginFormComponent implements OnInit {
     // TODO:判斷是否為華新ID
     const { password } = param;
     const md5Password = Md5.hashStr(password);
-    // param.password = _.toUpper(md5Password);
+    param.password = _.toUpper(md5Password);
 
 
     console.log('🚀 ~ file: login-form.component.ts:54 ~ LoginFormComponent ~ submitForm ~ param:', param);
 
 
+
+    // 调用登录接口 
     console.log('调用登录接口');
-    // 调用登录接口
-    // todo 登录后台返回统一模式为,如果code不为0，会自动被拦截，如果需要修改，请在src/app/core/services/http/base-http.service.ts中进行修改
-    // {
-    //   code:number,
-    //   data:any,
-    //   msg：string
-    // }
     this.loginService
       .login(param)
       .pipe(
@@ -114,7 +109,7 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
+      username: [null, [Validators.required]],
       password: [null, [Validators.required]],
       remember: [null]
     });
