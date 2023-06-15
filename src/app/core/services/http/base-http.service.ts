@@ -87,10 +87,22 @@ export class BaseHttpService {
           return this.handleFilter(item, !!config.needSuccessInfo);
         }),
         map(item => {
-          if (item.code !== 0) {
-            throw new Error(item.msg);
+
+          // 200開頭
+          if (
+            (200 <= item.code && item.code < 300) || item.code === 0
+          ) {
+            // OKGO
+            return item.data;
           }
-          return item.data;
+
+
+          // code 不是 200開頭 且不是 0 的話，就是錯誤 
+          throw new Error(item.msg);
+
+
+
+
         })
       );
     };
