@@ -42,13 +42,13 @@ export class JudgeAuthGuardService {
 
   // 保存当前的menu到this.selMenu
   getMenu(menu: Menu[], url: string): void {
-    console.log('=====> 保存当前的menu到this.selMenu')
-    console.log("🚀 ~ file: judgeAuth.guard.ts:45 ~ JudgeAuthGuardService ~ getMenu ~ url:", url)
-    console.log("🚀 ~ file: judgeAuth.guard.ts:45 ~ JudgeAuthGuardService ~ getMenu ~ menu:", menu)
-    console.log('保存当前的menu到this.selMenu')
     for (let i = 0; i < menu.length; i++) {
+
+      // console.log('XXX url:' + url + ', menu[i].path:' + menu[i].path + ' ==> ' + (url === menu[i].path));
+
       if (url === menu[i].path) {
         this.selMenu = menu[i];
+
         return;
       } else {
         if (menu[i].children && menu[i].children!.length > 0) {

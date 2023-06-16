@@ -7,10 +7,10 @@ export default [
     component: DwComponent,
     data: { key: 'dw', shouldDetach: 'no' },
     children: [
-      { path: '', redirectTo: '/dw/DWMSGDWMSGC', pathMatch: 'full' },
+      { path: '', redirectTo: '/dw/DWMSGDWMSG', pathMatch: 'full' },
       {
-        path: 'DWMSGDWMSGC',
-        data: { preload: true, key: 'DWMSGDWMSGC', shouldDetach: 'no' },
+        path: 'DWMSGDWMSG',
+        data: { preload: true, key: 'DWMSGDWMSG', shouldDetach: 'no' },
         loadComponent: () => import('./dwmsgdwmsg/dwmsgdwmsg.component').then(m => m.DwmsgdwmsgComponent)
       },
     ]

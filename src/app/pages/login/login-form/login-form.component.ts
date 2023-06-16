@@ -102,7 +102,7 @@ export class LoginFormComponent implements OnInit {
             // 登入成功後 重新導向到預設頁面
             // TODO:抽出環境黨 預設登入頁面路近
             console.log('===== 登入成功後 重新導向到預設頁面 =====')
-            this.router.navigateByUrl('default/dw/DWMSGDWMSGC');
+            this.router.navigateByUrl('default/dw/DWMSGDWMSG');
           })
           .catch(err => {
             console.log('loginIn err');
@@ -139,7 +139,7 @@ export class LoginFormComponent implements OnInit {
           // 登入成功後 重新導向到預設頁面
           // TODO:抽出環境黨 預設登入頁面路近
           console.log('===== 登入成功後 重新導向到預設頁面 =====')
-          this.router.navigateByUrl('default/dw/DWMSGDWMSGC');
+          this.router.navigateByUrl('default/dw/DWMSGDWMSG');
         })
         .catch(err => {
           console.log('loginIn err');

@@ -3,10 +3,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+import * as _ from 'lodash';
+
 export interface UserInfo {
   userId: number;
   authCode: string[];
 }
+
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +25,24 @@ export class UserInfoService {
     const helper = new JwtHelperService();
     try {
       const { rol, userId } = helper.decodeToken(token);
+      const authCodeArr: any[] = [];
+
+      rol.forEach((item: any) => {
+        authCodeArr.push(_.get(item, 'authority'));
+      })
+
       console.log("====> UserInfoService")
       console.log("🚀 ~ file: userInfo.service.ts:23 ~ UserInfoService ~ parsToken ~ rol:", rol)
       console.log("🚀 ~ file: userInfo.service.ts:23 ~ UserInfoService ~ parsToken ~ userId:", userId)
+      console.log('authCodeArr')
+      console.log(authCodeArr);
+
 
 
 
       return {
         userId,
-        authCode: rol.split(',')
+        authCode: authCodeArr
       };
     } catch (e) {
       return {
