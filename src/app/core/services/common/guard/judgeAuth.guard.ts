@@ -56,8 +56,10 @@ export class JudgeAuthGuardService {
 
   getResult(code: string, authCodeArray: string[]): boolean | UrlTree {
     if (authCodeArray.includes(code)) {
+      console.log('有 authCode 权限');
       return true;
     } else {
+      console.log('木有 authCode 权限');
       this.message.error('您没有权限登录该模块');
       this.loginOutService.loginOut();
       return this.router.parseUrl('/login');

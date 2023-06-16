@@ -49,7 +49,7 @@ export class NormalLoginComponent implements OnInit {
 
   submitForm(): void {
     this.spinService.setCurrentGlobalSpinStore(true);
-    this.windowServe.setSessionStorage(TokenKey, 'TokenPre + token');
+    this.windowServe.setLocalStorage(TokenKey, 'TokenPre + token');
     const userInfo = this.userInfoService.parsToken(TokenPre);
     this.userInfoService.setUserInfo(userInfo);
     // if (!fnCheckForm(this.validateForm)) {

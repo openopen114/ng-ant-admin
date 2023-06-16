@@ -14,6 +14,7 @@ import { LoginService } from '@services/login/login.service';
 import { MenuStoreService } from '@store/common-store/menu-store.service';
 import { UserInfo, UserInfoService } from '@store/common-store/userInfo.service';
 import { fnFlatDataHasParentToTree } from '@utils/treeTableTools';
+import { log } from '@antv/g2plot/lib/utils';
 
 
 /*
@@ -37,6 +38,7 @@ export class LoginInOutService {
 
   // 通过用户Id来获取菜单数组
   getMenuByUserId(): Observable<string> {
+    console.log('===@@ f getMenuByUserId')
     return this.loginService.getMenuByUserId();
   }
 
@@ -90,6 +92,9 @@ export class LoginInOutService {
             item.open = false;
             return item.menuType === 'C';
           });
+
+
+
           const temp = fnFlatDataHasParentToTree(menus);
           // 存储menu
 
@@ -97,8 +102,11 @@ export class LoginInOutService {
 
 
           this.menuService.setMenuArrayStore(temp);
+
           resolve();
+
         });
+
     });
   }
 

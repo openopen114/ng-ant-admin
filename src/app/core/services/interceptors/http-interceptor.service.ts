@@ -28,9 +28,10 @@ export class HttpInterceptorService implements HttpInterceptor {
 
     // 有 token 就加入 header Authorization: Bearer
     if (!!token) {
+      console.log('==> 有 token 就加入 header Authorization: Bearer')
       // httpConfig = { headers: req.headers.set(TokenKey, token) };
       // 如果 TokenKey 不是 'Authorization' 就手動設定為 'Authorization'
-      httpConfig = { headers: req.headers.set('Authorization', token).set('Access-Control-Allow-Origin', '*') };
+      httpConfig = { headers: req.headers.set('Authorization', token) };
     }
     const copyReq = req.clone(httpConfig);
     return next.handle(copyReq).pipe(

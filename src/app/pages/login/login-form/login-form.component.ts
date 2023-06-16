@@ -51,7 +51,7 @@ export class LoginFormComponent implements OnInit {
     private windowServe: WindowService,
     private userInfoService: UserInfoService,
     private router: Router
-  ) { }
+  ) { console.log('=====> LoginFormComponent') }
 
   submitForm(): void {
     // 校验表单
@@ -100,7 +100,9 @@ export class LoginFormComponent implements OnInit {
           .loginIn(userToken)
           .then(() => {
             // 登入成功後 重新導向到預設頁面
-            this.router.navigateByUrl('default/dashboard/analysis');
+            // TODO:抽出環境黨 預設登入頁面路近
+            console.log('===== 登入成功後 重新導向到預設頁面 =====')
+            // this.router.navigateByUrl('dw/DWMSGDWMSG');
           })
           .finally(() => {
             this.spinService.setCurrentGlobalSpinStore(false);
@@ -116,6 +118,6 @@ export class LoginFormComponent implements OnInit {
     });
 
     // 清掉 token
-    this.windowServe.removeLocalStorage(TokenKey);
+    // this.windowServe.removeLocalStorage(TokenKey);
   }
 }

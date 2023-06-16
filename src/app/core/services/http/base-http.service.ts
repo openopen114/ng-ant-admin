@@ -38,6 +38,7 @@ export class BaseHttpService {
   }
 
   get<T>(path: string, param?: NzSafeAny, config?: HttpCustomConfig): Observable<T> {
+    console.log('===> http [GET]:' + path);
     config = config || { needSuccessInfo: false };
     let reqPath = this.getUrl(path, config);
     const params = new HttpParams({ fromString: qs.stringify(param) });

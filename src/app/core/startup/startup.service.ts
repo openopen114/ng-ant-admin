@@ -14,7 +14,8 @@ export class StartupService {
 
   load(): Promise<void> {
     const token = this.windowSer.getLocalStorage(TokenKey)?.replace(TokenPre, '');
-    console.log("🚀 ~ file: startup.service.ts:17 ~ StartupService ~ load ~ token:", token);
+    console.log('===> StartupService');
+    console.log('🚀 ~ file: startup.service.ts:17 ~ StartupService ~ load ~ token:', token);
     if (token) {
       return this.loginInOutService.loginIn(token);
     }

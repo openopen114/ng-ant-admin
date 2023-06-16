@@ -15,6 +15,8 @@ const canActivateChildFn: CanActivateFn = () => {
   const router = inject(Router);
 
   const isLogin = !!windowSrc.getLocalStorage(TokenKey);
+  console.log("🚀 ~ 这个方法可以检查inject是否在context中 file: judgeLogin.guard.ts:18 ~ isLogin:", isLogin)
+  console.log("isLogin:" + isLogin)
   if (isLogin) {
     return true;
   }
