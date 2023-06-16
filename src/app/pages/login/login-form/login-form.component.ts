@@ -20,7 +20,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
-import { TokenKey } from '@config/constant';
+import { TokenKey, TokenPre } from '@config/constant';
 
 // MD5 
 import { Md5 } from 'ts-md5';
@@ -102,7 +102,7 @@ export class LoginFormComponent implements OnInit {
             // 登入成功後 重新導向到預設頁面
             // TODO:抽出環境黨 預設登入頁面路近
             console.log('===== 登入成功後 重新導向到預設頁面 =====')
-            this.router.navigateByUrl('/dw/DWMSGDWMSGC');
+            this.router.navigateByUrl('default/dw/DWMSGDWMSGC');
           })
           .catch(err => {
             console.log('loginIn err');
@@ -121,6 +121,35 @@ export class LoginFormComponent implements OnInit {
       password: [null, [Validators.required]],
       remember: [null]
     });
+
+
+    // 取得 token
+    console.log('====> 取得 token自動登入')
+    let userToken = this.windowServe.getLocalStorage(TokenKey) as string;
+    console.log("🚀 ~ file: login-form.component.ts:129 ~ LoginFormComponent ~ ngOnInit ~ userToken:", userToken)
+
+    // 去除前面 TokenPre Bearer 的部分
+    userToken = _.trim(_.replace(userToken, TokenPre, ''));
+
+
+    if (_.size(userToken) > 10) {
+      this.loginInOutService
+        .loginIn(userToken)
+        .then(() => {
+          // 登入成功後 重新導向到預設頁面
+          // TODO:抽出環境黨 預設登入頁面路近
+          console.log('===== 登入成功後 重新導向到預設頁面 =====')
+          this.router.navigateByUrl('default/dw/DWMSGDWMSGC');
+        })
+        .catch(err => {
+          console.log('loginIn err');
+          console.log(err);
+        })
+        .finally(() => {
+          console.log('loginIn finally');
+          this.spinService.setCurrentGlobalSpinStore(false);
+        });
+    }
 
     // 清掉 token
     // this.windowServe.removeLocalStorage(TokenKey);
