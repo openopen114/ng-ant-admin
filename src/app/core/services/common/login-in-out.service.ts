@@ -46,7 +46,7 @@ export class LoginInOutService {
 
 
   loginIn(token: string): Promise<void> {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       // 将 token 持久化缓存，请注意，如果没有缓存，则会在路由守卫中被拦截，不让路由跳转
       // 这个路由守卫在src/app/core/services/common/guard/judgeLogin.guard.ts
 
@@ -71,7 +71,11 @@ export class LoginInOutService {
       console.log("🚀 ~ file: login-in-out.service.ts:69 ~ LoginInOutService ~ loginIn ~ userInfo:", userInfo)
       // 通过用户id来获取这个用户所拥有的menu
 
-      console.log('通过用户id来获取这个用户所拥有的menu')
+      console.log('通过用户id来获取这个用户所拥有的menu');
+
+
+
+
 
       this.getMenuByUserId()
         .pipe(
@@ -103,9 +107,12 @@ export class LoginInOutService {
 
           this.menuService.setMenuArrayStore(temp);
 
+          console.log('setMenuArrayStore ok')
+
           resolve();
 
         });
+
 
     });
   }

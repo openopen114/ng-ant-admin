@@ -8,7 +8,6 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import * as qs from 'qs';
 
-
 // 取得 API 的基本路徑
 import { getBaseApiUrl } from '@core/services/http/base-api-url';
 
@@ -33,8 +32,7 @@ export class BaseHttpService {
   protected constructor(public http: HttpClient, public message: NzMessageService) {
     // TODO: 取得 API 的基本路徑
     this.uri = getBaseApiUrl();
-    console.log("🚀 ~ file: base-http.service.ts:37 ~ BaseHttpService ~ constructor ~ uri:", this.uri)
-
+    console.log('🚀 ~ file: base-http.service.ts:37 ~ BaseHttpService ~ constructor ~ uri:', this.uri);
   }
 
   get<T>(path: string, param?: NzSafeAny, config?: HttpCustomConfig): Observable<T> {
@@ -88,33 +86,39 @@ export class BaseHttpService {
           return this.handleFilter(item, !!config.needSuccessInfo);
         }),
         map(item => {
-
           // 200開頭
-          if (
-            (200 <= item.code && item.code < 300) || item.code === 0
-          ) {
+          if (this.isCodeOkgo(item.code)) {
             // OKGO
             return item.data;
           }
 
-
-          // code 不是 200開頭 且不是 0 的話，就是錯誤 
+          // code 不是 200開頭 且不是 0 的話，就是錯誤
           throw new Error(item.msg);
-
-
-
-
         })
       );
     };
   }
 
   handleFilter<T>(item: ActionResult<T>, needSuccessInfo: boolean): boolean {
-    if (item.code !== 0) {
-      this.message.error(item.msg);
+
+    if (!this.isCodeOkgo(item.code)) {
+      this.message.error(item.msg + "handleFilter base-http.service.ts");
     } else if (needSuccessInfo) {
       this.message.success('操作成功');
     }
     return true;
+  }
+
+  /**
+   *
+   * 驗證 200開頭  or 0 為正常
+   *
+   */
+  isCodeOkgo(code: number): boolean {
+    if ((200 <= code && code < 300) || code === 0) {
+      // OKGO
+      return true;
+    }
+    return false;
   }
 }

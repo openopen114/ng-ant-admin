@@ -43,6 +43,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   // TODO: 待驗證有作用
   private handleError(error: HttpErrorResponse): Observable<never> {
     const status = error.status;
+    console.log("🚀 ~ file: http-interceptor.service.ts:46 ~ HttpInterceptorService ~ handleError ~ status:", status)
     let errMsg = '';
     if (status === 0) {
       errMsg = '網絡出現未知的錯誤，請檢查您的網絡。';

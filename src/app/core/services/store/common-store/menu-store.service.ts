@@ -10,10 +10,12 @@ import { Menu } from '@core/services/types';
 export class MenuStoreService {
   private menuArray$ = new BehaviorSubject<Menu[]>([]);
 
-  constructor() {}
+  constructor() { }
 
   setMenuArrayStore(menuArray: Menu[]): void {
+    console.log('setMenuArrayStore 0')
     this.menuArray$.next(menuArray);
+    console.log('setMenuArrayStore 1')
   }
 
   getMenuArrayStore(): Observable<Menu[]> {
