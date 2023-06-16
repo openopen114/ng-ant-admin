@@ -20,6 +20,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
+import { TokenKey } from '@config/constant';
 
 // MD5 
 import { Md5 } from 'ts-md5';
@@ -93,7 +94,7 @@ export class LoginFormComponent implements OnInit {
       .subscribe(userToken => {
         // 这里后台登录成功以后，只会返回一套由jwt加密的token，下面需要对token进行解析
         console.log('这里后台登录成功以后，只会返回一套由jwt加密的token，下面需要对token进行解析');
-        console.log('🚀 ~ file: login-form.component.ts:87 ~ LoginFormComponent ~ submitForm ~ userToken:', userToken);
+        // console.log('🚀 ~ file: login-form.component.ts:87 ~ LoginFormComponent ~ submitForm ~ userToken:', userToken);
 
         this.loginInOutService
           .loginIn(userToken)
@@ -113,5 +114,8 @@ export class LoginFormComponent implements OnInit {
       password: [null, [Validators.required]],
       remember: [null]
     });
+
+    // 清掉 token
+    this.windowServe.removeLocalStorage(TokenKey);
   }
 }

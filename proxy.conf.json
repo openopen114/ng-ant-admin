@@ -14,5 +14,13 @@
     "pathRewrite": {
       "^/localhost": "/"
     }
+  },
+  "/dev": {
+    "target": "http://localhost:4201/",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev": ""
+    }
   }
 }

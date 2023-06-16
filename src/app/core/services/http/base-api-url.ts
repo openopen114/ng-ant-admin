@@ -11,7 +11,7 @@ const getBaseApiUrl = (): any => {
 
     let apiUrl = '';
 
-    let apiBpdy = _.get(environment, 'API_BODY') || '';
+    const apiBpdy = _.get(environment, 'API_BODY') || '';
 
     console.log(' 取得 API 的基本路徑')
     const hostName = window.location.hostname;

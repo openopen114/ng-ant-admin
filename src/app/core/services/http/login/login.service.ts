@@ -37,9 +37,9 @@ export class LoginService {
    * 
    * 通过用户Id来获取菜单数组 
    */
-  public getMenuByUserId(userId: number): Observable<Menu[]> {
+  public getMenuByUserId(): Observable<string> {
     // 如果是静态菜单，就把下面注释放开
-    // return of(this.menus);
-    return this.http.get(`/sysPermission/menu/${userId}`);
+    // return of(this.menus); 
+    return this.http.post('/auth/menu', {}, { needSuccessInfo: false });
   }
 }

@@ -36,8 +36,8 @@ export class LoginInOutService {
   ) { }
 
   // 通过用户Id来获取菜单数组
-  getMenuByUserId(userId: number): Observable<Menu[]> {
-    return this.loginService.getMenuByUserId(userId);
+  getMenuByUserId(): Observable<string> {
+    return this.loginService.getMenuByUserId();
   }
 
 
@@ -55,6 +55,8 @@ export class LoginInOutService {
 
       // jwt token 存 localStorage  ECC_Authorization
       this.windowServe.setLocalStorage(TokenKey, TokenPre + token);
+
+
       // this.windowServe.setSessionStorage(TokenKey, TokenPre + token);
       // 解析token ，然后获取用户信息
       const userInfo: UserInfo = this.userInfoService.parsToken(TokenPre + token);
@@ -64,18 +66,25 @@ export class LoginInOutService {
       userInfo.authCode.push(ActionCode.SearchTableDetail);
       // 将用户信息缓存到全局service中
       this.userInfoService.setUserInfo(userInfo);
+      console.log("🚀 ~ file: login-in-out.service.ts:69 ~ LoginInOutService ~ loginIn ~ userInfo:", userInfo)
       // 通过用户id来获取这个用户所拥有的menu
 
       console.log('通过用户id来获取这个用户所拥有的menu')
 
-      this.getMenuByUserId(userInfo.userId)
+      this.getMenuByUserId()
         .pipe(
           finalize(() => {
             resolve();
           }),
           takeUntilDestroyed(this.destroyRef)
         )
-        .subscribe(menus => {
+        .subscribe(menusJsonStr => {
+
+          let menus: Menu[] = JSON.parse(menusJsonStr);
+
+          console.log('菜單 menus')
+          console.log(menus)
+
           menus = menus.filter(item => {
             item.selected = false;
             item.open = false;

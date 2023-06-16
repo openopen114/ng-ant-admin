@@ -30,7 +30,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     if (!!token) {
       // httpConfig = { headers: req.headers.set(TokenKey, token) };
       // 如果 TokenKey 不是 'Authorization' 就手動設定為 'Authorization'
-      httpConfig = { headers: req.headers.set('Authorization', token) };
+      httpConfig = { headers: req.headers.set('Authorization', token).set('Access-Control-Allow-Origin', '*') };
     }
     const copyReq = req.clone(httpConfig);
     return next.handle(copyReq).pipe(
