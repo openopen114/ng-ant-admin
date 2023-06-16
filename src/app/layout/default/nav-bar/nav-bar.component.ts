@@ -275,6 +275,7 @@ export class NavBarComponent implements OnInit {
       window.open(menu.path, '_blank');
       return;
     }
+    console.log('router navigate:' + menu.path)
     this.router.navigate([menu.path]);
   }
 

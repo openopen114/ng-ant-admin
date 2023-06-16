@@ -46,6 +46,10 @@ export default [
       {
         path: 'dw',
         loadChildren: () => import('../../pages/dw/dw-routing')
+      },
+      {
+        path: 'ds',
+        loadChildren: () => import('../../pages/ds/ds-routing')
       }
     ]
   }

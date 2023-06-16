@@ -10,6 +10,7 @@ import { WindowService } from '../window.service';
 // 路由守卫，没有TokenKey则跳转登录页
 const canActivateChildFn: CanActivateFn = () => {
   // 这个方法可以检查inject是否在context中
+  console.log('==> judge login canActivateChildFn 这个方法可以检查inject是否在context中');
   assertInInjectionContext(canActivateChildFn);
   const windowSrc = inject(WindowService);
   const router = inject(Router);
@@ -20,6 +21,9 @@ const canActivateChildFn: CanActivateFn = () => {
   if (isLogin) {
     return true;
   }
+
+  console.log('木有 isLogin ---> /login');
+
   return router.parseUrl('/login');
 };
 

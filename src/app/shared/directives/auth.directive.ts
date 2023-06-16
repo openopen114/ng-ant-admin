@@ -17,8 +17,8 @@ export class AuthDirective {
       return;
     }
 
-    console.log('===> 檢查 appAuth: ' + authCode);
-    console.log('this.codeArray.includes(authCode) :' + this.codeArray.includes(authCode))
+    // console.log('===> 檢查 appAuth: ' + authCode);
+    // console.log('this.codeArray.includes(authCode) :' + this.codeArray.includes(authCode))
 
     this.codeArray.includes(authCode) ? this.show(true) : this.show(false);
   }

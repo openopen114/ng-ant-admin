@@ -66,16 +66,17 @@ export class JudgeAuthGuardService {
       console.log('有 authCode 权限');
       return true;
     } else {
-      console.log('木有 authCode 权限');
+      console.log('木有 authCode 权限 ---> /login');
+
       this.message.error('您没有权限登录该模块');
       // this.loginOutService.loginOut();
+
       return this.router.parseUrl('/login');
     }
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log("🚀 ~ file: judgeAuth.guard.ts:73 ~ JudgeAuthGuardService ~ canActivateChild ~ route:", route)
-    console.log('canActivateChild')
+    console.log('==> judge auth  canActivateChildFn 这个方法可以检查inject是否在context中')
     this.userInfoService
       .getUserInfo()
       .pipe(takeUntilDestroyed(this.destroyRef))
