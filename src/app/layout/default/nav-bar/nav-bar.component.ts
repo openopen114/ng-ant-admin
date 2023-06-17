@@ -128,6 +128,13 @@ export class NavBarComponent implements OnInit {
           route = route.firstChild;
         }
 
+
+
+        console.log('===> NavBarComponent tabService addTab ', route.snapshot)
+        console.log('===> NavBarComponent tabService addTab ', routeData)
+
+
+
         this.tabService.addTab(
           {
             snapshotArray: [route.snapshot],

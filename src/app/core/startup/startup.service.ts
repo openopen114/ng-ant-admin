@@ -14,9 +14,12 @@ export class StartupService {
 
   load(): Promise<void> {
     const token = this.windowSer.getLocalStorage(TokenKey)?.replace(TokenPre, '');
-    console.log('===> StartupService');
-    console.log('🚀 ~ file: startup.service.ts:17 ~ StartupService ~ load ~ token:', token);
+    console.log('===> StartupService load');
+    // 取得 token
+    console.log('====> 取得 token自動登入')
+
     if (token) {
+      console.log('===> StartupService 有 token ');
       return this.loginInOutService.loginIn(token);
     }
     return new Promise(resolve => {

@@ -15,7 +15,10 @@ import { MenuStoreService } from '@store/common-store/menu-store.service';
 import { UserInfo, UserInfoService } from '@store/common-store/userInfo.service';
 import { fnFlatDataHasParentToTree } from '@utils/treeTableTools';
 import { log } from '@antv/g2plot/lib/utils';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
+
+import moment from 'moment';
 
 /*
  * 退出登录
@@ -38,7 +41,7 @@ export class LoginInOutService {
 
   // 通过用户Id来获取菜单数组
   getMenuByUserId(): Observable<string> {
-    console.log('===@@ f getMenuByUserId')
+    console.log('===> LoginInOutService 通过用户Id来获取菜单数组')
     return this.loginService.getMenuByUserId();
   }
 
@@ -46,12 +49,44 @@ export class LoginInOutService {
 
 
   loginIn(token: string): Promise<void> {
+    console.log('===> LoginInOutService loginIn')
     return new Promise((resolve, reject) => {
       // 将 token 持久化缓存，请注意，如果没有缓存，则会在路由守卫中被拦截，不让路由跳转
       // 这个路由守卫在src/app/core/services/common/guard/judgeLogin.guard.ts
 
       // angular中使用md5密码加密
       // ref: https://github.com/cotag/ts-md5 
+
+
+
+      // 檢查 token 是否過期
+      const helper = new JwtHelperService();
+      try {
+        const { exp } = helper.decodeToken(token);
+
+        const expirDate = moment.unix(exp);
+
+        console.log(expirDate);
+        console.log(expirDate.valueOf());
+        console.log(expirDate.format('YYYY-MM-DD HH:mm:ss'));
+
+        console.log('是否 token 過期: ' + expirDate.isBefore(moment()));
+
+        if (expirDate.isBefore(moment())) {
+          // return reject('token 過期');
+          // 清空 token 並跳轉到登入頁面
+          this.loginOut();
+        }
+
+
+      } catch (e) {
+        this.loginOut();
+        return reject('檢查 token 是否過期錯誤');
+
+      }
+
+
+
 
 
 
@@ -144,5 +179,19 @@ export class LoginInOutService {
       .then(() => {
         this.router.navigate(['/login/login-form']);
       });
+  }
+
+
+  /**
+   * 
+   * 
+   * 驗證 token 是否過期
+   * 
+   * 
+   */
+  checkTokenInExp(_token: string): Boolean {
+
+
+    return false;
   }
 }

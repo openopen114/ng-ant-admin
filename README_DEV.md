@@ -26,6 +26,10 @@ src/app/core/services/interceptors/login-expired.service.ts
 proxy.conf.json
 
 
+// startup
+src/app/core/startup/startup.service.ts
+
+
 
 //TODO待確認
 // 将 token 持久化缓存，请注意，如果没有缓存，则会在路由守卫中被拦截，不让路由跳转

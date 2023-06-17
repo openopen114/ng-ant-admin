@@ -10,7 +10,7 @@ export default [
             { path: '', redirectTo: '/ds/DSAUTHDSAUTH', pathMatch: 'full' },
             {
                 path: 'DSAUTHDSAUTH',
-                data: { preload: true, key: 'DSAUTHDSAUTH', shouldDetach: 'no' },
+                data: { preload: true, title: 'DSAUTHDSAUTH頁面', key: 'DSAUTHDSAUTH', shouldDetach: 'no' },
                 loadComponent: () => import('./dsauthdsauth/dsauthdsauth.component').then(m => m.DSAUTHDSAUTHComponent)
             },
         ]

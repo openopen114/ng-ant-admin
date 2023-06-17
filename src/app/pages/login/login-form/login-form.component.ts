@@ -116,6 +116,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('=====> LoginFormComponent ngOnInit');
     this.validateForm = this.fb.group({
       username: [null, [Validators.required]],
       password: [null, [Validators.required]],
@@ -123,33 +124,7 @@ export class LoginFormComponent implements OnInit {
     });
 
 
-    // 取得 token
-    console.log('====> 取得 token自動登入')
-    let userToken = this.windowServe.getLocalStorage(TokenKey) as string;
-    console.log("🚀 ~ file: login-form.component.ts:129 ~ LoginFormComponent ~ ngOnInit ~ userToken:", userToken)
 
-    // 去除前面 TokenPre Bearer 的部分
-    userToken = _.trim(_.replace(userToken, TokenPre, ''));
-
-
-    if (_.size(userToken) > 10) {
-      this.loginInOutService
-        .loginIn(userToken)
-        .then(() => {
-          // 登入成功後 重新導向到預設頁面
-          // TODO:抽出環境黨 預設登入頁面路近
-          console.log('===== 登入成功後 重新導向到預設頁面 =====')
-          this.router.navigateByUrl('default/dw/DWMSGDWMSG');
-        })
-        .catch(err => {
-          console.log('loginIn err');
-          console.log(err);
-        })
-        .finally(() => {
-          console.log('loginIn finally');
-          this.spinService.setCurrentGlobalSpinStore(false);
-        });
-    }
 
     // 清掉 token
     // this.windowServe.removeLocalStorage(TokenKey);

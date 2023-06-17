@@ -10,7 +10,7 @@ export default [
       { path: '', redirectTo: '/dw/DWMSGDWMSG', pathMatch: 'full' },
       {
         path: 'DWMSGDWMSG',
-        data: { preload: true, key: 'DWMSGDWMSG', shouldDetach: 'no' },
+        data: { preload: true, title: 'DWMSGDWMSG頁面', key: 'DWMSGDWMSG', shouldDetach: 'no' },
         loadComponent: () => import('./dwmsgdwmsg/dwmsgdwmsg.component').then(m => m.DwmsgdwmsgComponent)
       },
     ]

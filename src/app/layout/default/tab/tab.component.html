@@ -4,7 +4,7 @@
     <nz-tab *ngFor="let tab of tabsSourceData$ | async; let i = index; trackBy: trackByTab" nzClosable [nzTitle]="tab.title" (nzClick)="goPage(tab)" (nzContextmenu)="contextMenu($event, menu)">
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item [nzDisabled]="router.url !== tab.path" (click)="refresh()">刷新</li>
+          <li nz-menu-item [nzDisabled]="router.url !== tab.path" (click)="refresh()">111刷新</li>
           <li nz-menu-item [nzDisabled]="tabsSourceData.length - 1 === 0" (click)="closeTab(tab, $event, i)">关闭标签</li>
           <li nz-menu-item [nzDisabled]="tabsSourceData.length - 1 === 0" (click)="closeOtherTab(tab, $event, i)">关闭其他标签</li>
           <li nz-menu-item [nzDisabled]="tabsSourceData.length - 1 === i" (click)="closeRithTab(tab, $event, i)">关闭右侧标签</li>
@@ -41,7 +41,7 @@
         </ng-template>
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu>
-            <li nz-menu-item [nzDisabled]="router.url !== tab.path" (click)="refresh()">刷新</li>
+            <li nz-menu-item [nzDisabled]="router.url !== tab.path" (click)="refresh()">222刷新</li>
             <li nz-menu-item [nzDisabled]="tabsSourceData.length - 1 === 0" (click)="closeTab(tab, $event, i)">关闭标签</li>
             <li nz-menu-item [nzDisabled]="tabsSourceData.length - 1 === 0" (click)="closeOtherTab(tab, $event, i)">关闭其他标签</li>
             <li nz-menu-item [nzDisabled]="tabsSourceData.length - 1 === i" (click)="closeRithTab(tab, $event, i)">关闭右侧标签</li>
