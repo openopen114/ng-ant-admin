@@ -33,7 +33,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DeptTreeComponent } from './dept-tree/dept-tree.component';
 
 interface SearchParam {
-  userName: string;
+  userno: string;
   departmentId: number;
   mobile: number;
   available: boolean;
@@ -70,8 +70,8 @@ export class AccountComponent implements OnInit {
   searchParam: Partial<SearchParam> = {};
   tableConfig!: AntTableConfig;
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '账号管理(数据库每10分钟从备份恢复一次)',
-    breadcrumb: ['首页', '用户管理', '账号管理']
+    title: '帳號管理',
+    breadcrumb: ['系統管理', '帳號管理']
   };
   dataList: User[] = [];
   checkedCashArray: User[] = [];
@@ -88,7 +88,7 @@ export class AccountComponent implements OnInit {
     private modalService: AccountModalService,
     private router: Router,
     public message: NzMessageService
-  ) {}
+  ) { }
 
   selectedChecked(e: User[]): void {
     this.checkedCashArray = [...e];
@@ -290,18 +290,34 @@ export class AccountComponent implements OnInit {
     this.isCollapse = !this.isCollapse;
   }
 
+
+  /**
+   * 
+   * 
+   * ngOnInit
+   * 
+   */
   ngOnInit(): void {
+    console.log('AccountComponent init');
     this.availableOptions = [...MapPipe.transformMapToArray(MapSet.available, MapKeyType.Boolean)];
+    console.log("🚀 ~ file: account.component.ts:296 ~ AccountComponent ~ ngOnInit ~ availableOptions:", this.availableOptions)
     this.initTable();
   }
 
+
+  /**
+   * 
+   * 初始化表格欄位設定
+   * 
+   * 
+   */
   private initTable(): void {
     this.tableConfig = {
       showCheckbox: true,
       headers: [
         {
           title: '用户名称',
-          field: 'userName',
+          field: 'userno',
           width: 100
         },
         {
