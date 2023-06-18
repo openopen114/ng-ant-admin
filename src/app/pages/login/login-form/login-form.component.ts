@@ -19,6 +19,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { TokenKey, TokenPre } from '@config/constant';
 
@@ -50,7 +51,8 @@ export class LoginFormComponent implements OnInit {
     private spinService: SpinService,
     private windowServe: WindowService,
     private userInfoService: UserInfoService,
-    private router: Router
+    private router: Router,
+    public message: NzMessageService
   ) { console.log('=====> LoginFormComponent') }
 
   submitForm(): void {
@@ -92,6 +94,7 @@ export class LoginFormComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(userToken => {
+        this.message.success('登入成功!');
         // 这里后台登录成功以后，只会返回一套由jwt加密的token，下面需要对token进行解析
         console.log('这里后台登录成功以后，只会返回一套由jwt加密的token，下面需要对token进行解析');
         // console.log('🚀 ~ file: login-form.component.ts:87 ~ LoginFormComponent ~ submitForm ~ userToken:', userToken);
@@ -112,6 +115,10 @@ export class LoginFormComponent implements OnInit {
             console.log('loginIn finally');
             this.spinService.setCurrentGlobalSpinStore(false);
           });
+      }, err => {
+        console.log('登入失敗 login err');
+        console.log(err);
+        this.message.error('登入失敗!');
       });
   }
 
