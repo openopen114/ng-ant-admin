@@ -6,8 +6,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import * as _ from 'lodash';
 
 export interface UserInfo {
-  userId: number;
+  userId: string;
   authCode: string[];
+  userName?: string;
 }
 
 
@@ -17,7 +18,7 @@ export interface UserInfo {
   providedIn: 'root'
 })
 export class UserInfoService {
-  private userInfo$ = new BehaviorSubject<UserInfo>({ userId: -1, authCode: [] });
+  private userInfo$ = new BehaviorSubject<UserInfo>({ userId: '---', authCode: [] });
 
   constructor() { }
 
@@ -46,7 +47,7 @@ export class UserInfoService {
       };
     } catch (e) {
       return {
-        userId: -1,
+        userId: '---',
         authCode: []
       };
     }

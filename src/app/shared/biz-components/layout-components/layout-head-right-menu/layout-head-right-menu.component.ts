@@ -24,6 +24,8 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 import { HomeNoticeComponent } from '../home-notice/home-notice.component';
 
+
+
 @Component({
   selector: 'app-layout-head-right-menu',
   templateUrl: './layout-head-right-menu.component.html',
@@ -124,5 +126,15 @@ export class LayoutHeadRightMenuComponent implements OnInit {
     this.router.navigateByUrl(`/default/page-demo/personal/${path}`);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log('===> LayoutHeadRightMenuComponent ngOnInit')
+    this.userInfoService.getUserInfo().subscribe(res => {
+
+      console.log('===> LayoutHeadRightMenuComponent getUserInfo res', res)
+      const { userId } = res;
+      console.log('===> LayoutHeadRightMenuComponent userId:' + userId)
+
+      this.user = res;
+    });
+  }
 }

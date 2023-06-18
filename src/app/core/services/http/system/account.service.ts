@@ -27,16 +27,17 @@ export interface User {
  * 用户修改密码
  * */
 export interface UserPsd {
-  id: number;
-  oldPassword: string;
-  newPassword: string;
+  id?: string;
+  oldPassword?: string;
+  newPassword?: string;
+  userId?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  constructor(public http: BaseHttpService) {}
+  constructor(public http: BaseHttpService) { }
 
   public getAccount(param: SearchCommonVO<User>): Observable<PageInfo<User>> {
     return this.http.post('/user/list/', param);

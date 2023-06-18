@@ -38,7 +38,7 @@
     </span>
     <span class="bst-header-icon" nz-dropdown [nzDropdownMenu]="userSettingMenu">
       <img class="avatar" alt="" src="assets/imgs/default_face.png" />
-      <span class="base-font-size">Serati Ma</span>
+      <span class="base-font-size">{{ user.userId }}</span>
     </span>
     <nz-dropdown-menu #userSettingMenu>
       <ul nz-menu>
